@@ -1,0 +1,35 @@
+# Gold AI Trading Dashboard Requirements
+
+# Core Data & ML Libraries
+pandas>=1.5.0
+numpy>=1.24.0
+scikit-learn>=1.1.0
+xgboost>=1.6.0
+joblib>=1.1.0
+scipy>=1.10.0
+
+# Technical Analysis
+pandas-ta>=0.3.14b
+
+# Data Sources
+yfinance>=0.2.18
+
+# Web Framework
+streamlit>=1.28.0
+
+# Visualization
+plotly>=5.11.0
+
+# Configuration & Scheduling
+PyYAML>=6.0
+schedule>=1.2.0
+requests>=2.28.0
+
+# Utilities
+python-dateutil>=2.8.0
+pytz>=2022.1
+
+# Optional: For enhanced features
+# openai>=0.27.0  # Uncomment if using GPT integration
+# requests>=2.28.0  # For alternative APIs
+ta>=0.10.2

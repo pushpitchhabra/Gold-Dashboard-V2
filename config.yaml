@@ -1,0 +1,192 @@
+# Gold AI Trading Dashboard Configuration
+# Edit these settings as needed
+
+# Data Settings
+data:
+  symbol: "GC=F"  # Gold futures symbol for yfinance
+  interval: "30m"  # 30-minute intervals
+  historical_file: "data/gold_30min.csv"
+  live_file: "data/gold_live.csv"
+  timezone: "UTC"  # Keep consistent with historical data
+
+# Model Settings
+model:
+  target_threshold: 0.005  # 0.5% price change threshold
+  lookforward_periods: 3   # Number of candles to look ahead
+  training_months: 12      # Use last 12 months for training
+  model_file: "saved_models/gold_model_xgb.pkl"
+  feature_file: "saved_models/feature_columns.pkl"
+
+# Technical Indicators
+indicators:
+  rsi_period: 14
+  ema_fast: 12
+  ema_slow: 26
+  macd_fast: 12
+  macd_slow: 26
+  macd_signal: 9
+  bb_period: 20
+  bb_std: 2
+  atr_period: 14
+
+# Macroeconomic Factors Configuration
+macro_factors:
+  # Enable/disable macro analysis
+  enabled: true
+  
+  # Update frequency (in hours)
+  update_frequency: 4
+  
+  # Market factors (via yfinance)
+  market_factors:
+    # Currency & Dollar Strength
+    - symbol: "DX-Y.NYB"
+      name: "US Dollar Index (DXY)"
+      category: "Currency"
+      correlation: "negative"
+      weight: 1.0
+    
+    - symbol: "EURUSD=X"
+      name: "EUR/USD"
+      category: "Currency"
+      correlation: "positive"
+      weight: 0.8
+    
+    - symbol: "GBPUSD=X"
+      name: "GBP/USD"
+      category: "Currency"
+      correlation: "positive"
+      weight: 0.6
+    
+    - symbol: "USDJPY=X"
+      name: "USD/JPY"
+      category: "Currency"
+      correlation: "negative"
+      weight: 0.7
+    
+    # Interest Rates & Bonds
+    - symbol: "^TNX"
+      name: "10-Year Treasury Yield"
+      category: "Interest Rates"
+      correlation: "negative"
+      weight: 1.0
+    
+    - symbol: "^FVX"
+      name: "5-Year Treasury Yield"
+      category: "Interest Rates"
+      correlation: "negative"
+      weight: 0.8
+    
+    - symbol: "^IRX"
+      name: "3-Month Treasury Bill"
+      category: "Interest Rates"
+      correlation: "negative"
+      weight: 0.6
+    
+    - symbol: "TLT"
+      name: "20+ Year Treasury Bond ETF"
+      category: "Bonds"
+      correlation: "positive"
+      weight: 0.7
+    
+    # Market Sentiment & Risk
+    - symbol: "^VIX"
+      name: "CBOE Volatility Index"
+      category: "Risk Sentiment"
+      correlation: "positive"
+      weight: 0.9
+    
+    - symbol: "^GSPC"
+      name: "S&P 500 Index"
+      category: "Equities"
+      correlation: "negative"
+      weight: 0.8
+    
+    # Commodities & Inflation
+    - symbol: "CL=F"
+      name: "Crude Oil Futures"
+      category: "Commodities"
+      correlation: "positive"
+      weight: 0.7
+    
+    - symbol: "SI=F"
+      name: "Silver Futures"
+      category: "Precious Metals"
+      correlation: "positive"
+      weight: 0.9
+    
+    - symbol: "HG=F"
+      name: "Copper Futures"
+      category: "Industrial Metals"
+      correlation: "positive"
+      weight: 0.6
+    
+    - symbol: "BTC-USD"
+      name: "Bitcoin"
+      category: "Digital Assets"
+      correlation: "mixed"
+      weight: 0.5
+  
+  # FRED Economic Indicators
+  fred_indicators:
+    - symbol: "CPIAUCSL"
+      name: "Consumer Price Index"
+      category: "Inflation"
+      correlation: "positive"
+      weight: 1.0
+    
+    - symbol: "CPILFESL"
+      name: "Core CPI"
+      category: "Inflation"
+      correlation: "positive"
+      weight: 0.9
+    
+    - symbol: "UNRATE"
+      name: "Unemployment Rate"
+      category: "Employment"
+      correlation: "positive"
+      weight: 0.7
+    
+    - symbol: "FEDFUNDS"
+      name: "Federal Funds Rate"
+      category: "Monetary Policy"
+      correlation: "negative"
+      weight: 1.0
+    
+    - symbol: "GDP"
+      name: "Gross Domestic Product"
+      category: "Economic Growth"
+      correlation: "negative"
+      weight: 0.8
+    
+    - symbol: "PAYEMS"
+      name: "Nonfarm Payrolls"
+      category: "Employment"
+      correlation: "negative"
+      weight: 0.8
+    
+    - symbol: "HOUST"
+      name: "Housing Starts"
+      category: "Real Estate"
+      correlation: "negative"
+      weight: 0.5
+    
+    - symbol: "UMCSENT"
+      name: "Consumer Sentiment"
+      category: "Sentiment"
+      correlation: "negative"
+      weight: 0.6
+
+# API Keys (Optional - add your keys here)
+api_keys:
+  openai_key: "your_openai_key_here"
+  claude_key: "your_claude_key_here"
+  fred_key: "18771ae01051aa4e3bdec6704a7a8578"
+  metals_api_key: ""  # Alternative to yfinance
+
+# Dashboard Settings
+dashboard:
+  title: "AI-Powered Gold Trading Dashboard"
+  refresh_interval: 300  # Refresh every 5 minutes (in seconds)
+  chart_height: 600
+  show_strategy_explanation: true
